@@ -2,7 +2,6 @@
 using System.Collections;
 using Unity.Collections;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 
 public static class ExtensionMethods
@@ -286,26 +285,6 @@ public static class ExtensionMethods
 
     #endregion
 
-
-
-    /// <returns>SurfaceType enum of the target collider, returns SurfaceType.None if there is no <see cref="SurfaceTypeIdentifier"/> attached to targetr collider</returns>
-    public static SurfaceType GetSurfaceType(this Collider collider)
-    {
-        if (collider.TryGetComponent(out SurfaceTypeIdentifier identifier))
-        {
-            return identifier.SurfaceType;
-        }
-        return SurfaceType.Metal;
-    }
-
-    /// <summary>
-    /// Try finding an action by name, returns true if found, false if not. Outputs the found action
-    /// </summary>
-    public static bool TryFindAction(this InputActionAsset actionAsset, string actionName, out InputAction action)
-    {
-        action = actionAsset.FindAction(actionName);
-        return action != null;
-    }
 
     /// <summary>
     /// Assign value <typeparamref name="T"/> to ref of captured variable (use this to write back to arrays)
