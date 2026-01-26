@@ -333,17 +333,6 @@ public static class ExtensionMethods
     }
 
     /// <summary>
-    /// Replaces the element at <paramref name="targetId"/> with the element at <paramref name="backId"/>, 
-    /// then clears the element at <paramref name="backId"/> by assigning <paramref name="nullValue"/>.
-    /// Useful for implementing a swap-back removal in fixed-size arrays.
-    /// </summary>
-    public static void RemoveAtSwapBack<T>(this T[] targetArray, int targetId, int backId, T nullValue = default)
-    {
-        targetArray[targetId] = targetArray[backId];
-        targetArray[backId] = nullValue;
-    }
-
-    /// <summary>
     /// Increments index by 1 and wraps to 0 if it reaches length
     /// </summary>
     public static int IncrementSmart(this ref int value, int length)
@@ -356,7 +345,7 @@ public static class ExtensionMethods
         return value;
     }
     /// <summary>
-    /// Decrements index by 1 and wraps to 0 if it reaches length
+    /// Decrements index by 1 and wraps to length if it reaches 0
     /// </summary>
     public static int DecrementSmart(this ref int value, int length)
     {
@@ -364,6 +353,25 @@ public static class ExtensionMethods
         if (value < 0)
         {
             value = length - 1;
+        }
+        return value;
+    }
+
+    /// <summary>
+    /// Updates index by adding <paramref name="toAdd"/> and wraps to 0 if it reaches length or length if it reaches 0
+    /// </summary>
+    public static int AddSmart(this ref int value, int toAdd, int length)
+    {
+        DebugLogger.Throw("AddSmart called with length 0", length <= 0);
+
+        value += toAdd;
+        while (value >= length)
+        {
+            value -= length;
+        }
+        while (value < 0)
+        {
+            value += length;
         }
         return value;
     }
