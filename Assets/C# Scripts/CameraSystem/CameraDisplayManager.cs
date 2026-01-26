@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class CameraDisplayManager : UpdateMonoBehaviour
 {
+    public static CameraDisplayManager Instance { get; private set; }
+    private void Awake()
+    {
+        Instance = this;
+    }
+
+
     [SerializeField] private GameObject staticScreenCamHolder;
 
     [SerializeField] private MinMaxFloat camSwapDelayMinMax = new MinMaxFloat(0.5f, 1f);
@@ -14,6 +21,7 @@ public class CameraDisplayManager : UpdateMonoBehaviour
     private bool isSwappingCamera;
 
 
+    
     public void Init()
     {
         monitorCamera = GetComponentInChildren<Camera>();
@@ -21,37 +29,50 @@ public class CameraDisplayManager : UpdateMonoBehaviour
 
         if (gameCameras.Length == 0)
         {
-            DebugLogger.LogWarning("No game cameras found for CameraDisplay.");
+            DebugLogger.LogError("No game cameras found for CameraDisplay.");
             return;
         }
-        StartCoroutine(SwapCameraCycle());
+        SwapToStaticScreen(camSwapDelayMinMax.min);
     }
-
     protected override void OnUpdate()
     {
         if (isSwappingCamera) return;
 
-        if (Input.GetKeyDown(KeyCode.M))
+        if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            isSwappingCamera = true;
-            StartCoroutine(SwapCameraCycle());
+            SwapToNextCameraLR(true);
+        }
+        if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            SwapToNextCameraLR(false);
         }
     }
 
-    private IEnumerator SwapCameraCycle()
+    private void SwapToNextCameraLR(bool reversed)
     {
-        RoomManager.LoadNextRoom();
+        RoomManager.SwapToNextRoom(reversed);
+        SwapToStaticScreen(EzRandom.Range(camSwapDelayMinMax));
+    }
+
+    public void SwapToStaticScreen(float duration)
+    {
+        if (isSwappingCamera)
+        {
+            // Kill any existing routines to avoid multiple actions stacking up
+            StopAllCoroutines();
+        }
+        isSwappingCamera = true;
 
         monitorCamera.transform.SetParent(staticScreenCamHolder.transform, false, false);
 
-        yield return new WaitForSeconds(EzRandom.Range(camSwapDelayMinMax));
-
-        SwapToCamera(RoomManager.CurrentRoomId);
-
-        isSwappingCamera = false;
+        this.Invoke(() =>
+        {
+            SwapToCamera(RoomManager.CurrentRoomId);
+            isSwappingCamera = false;
+        }, 
+        duration);
     }
-
-    private void SwapToCamera(int camId)
+    public void SwapToCamera(int camId)
     {
         monitorCamera.transform.SetParent(gameCameras[camId].CameraHolder, false, false);
     }

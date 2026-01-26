@@ -7,14 +7,20 @@ public class ObjectMoveEvent : RoomObjectEvent
     [SerializeField] private Transformation[] transformations = new Transformation[1] { Transformation.Identity };
     [SerializeField] private float transformTime;
 
+    private Transformation startTransformation;
+
 
     protected override void OnExecute()
     {
+        // Store start transform
+        startTransformation = Transformation.FromTransform(transform);
         StartCoroutine(MoveCycle());
     }
     protected override void OnReported()
     {
         StopAllCoroutines();
+        // Reset transform;
+        startTransformation.ApplyToTransform(transform);
     }
 
     private IEnumerator MoveCycle()

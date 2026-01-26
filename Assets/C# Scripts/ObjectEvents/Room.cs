@@ -9,8 +9,7 @@ using UnityEngine;
 public class Room : MonoBehaviour
 {
     private bool isRoomActive;
-
-    [SerializeField] private List<RoomObjectEvent> roomEvents;
+    private List<RoomObjectEvent> roomEvents;
 
 
     private void Awake()
@@ -18,7 +17,9 @@ public class Room : MonoBehaviour
         roomEvents = GetComponentsInChildren<RoomObjectEvent>(true).ToList();
     }
 
-    // Toggle the active state of the room and update its internal isActive tracking state
+    /// <summary>
+    /// Toggle the active state of the room and update its internal isActive tracking state
+    /// </summary>
     public void ToggleRoomState()
     {
         isRoomActive = !isRoomActive;
@@ -36,16 +37,12 @@ public class Room : MonoBehaviour
         {
             RoomObjectEvent cRoomEvent = roomEvents[i];
 
-            if (cRoomEvent.Requirements.AllowIfRoomActive == isRoomActive &&
-                cRoomEvent.Requirements.TimeRequirement < elapsedPlayTime)
+            if (cRoomEvent.TryExecute(isRoomActive, elapsedPlayTime, out bool ranOutOfExections))
             {
-                cRoomEvent.Execute();
-
-                if (cRoomEvent.ExecuteOptions.IsOutOfExecutions)
+                if (ranOutOfExections)
                 {
                     roomEvents.RemoveAtSwapBack(i);
                 }
-                // Event executed successfully
                 return true;
             }
         }

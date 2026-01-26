@@ -15,7 +15,7 @@ public class RoomManager : UpdateMonoBehaviour
     private static float nextEventTime;
 
 
-    private void Awake()
+    private void Start()
     {
         Instance = this;
 
@@ -30,10 +30,7 @@ public class RoomManager : UpdateMonoBehaviour
         // Activate the first room on start
         rooms[0].ToggleRoomState();
 
-        // Static Instance??
-        // Static Instance??
-        // Static Instance??
-        this.FindObjectOfType<CameraDisplayManager>().Init();
+        CameraDisplayManager.Instance.Init();
     }
 
     protected override void OnUpdate()
@@ -60,13 +57,13 @@ public class RoomManager : UpdateMonoBehaviour
         }
     }
 
-    public static void LoadNextRoom()
+    public static void SwapToNextRoom(bool reversed)
     {
         // Toggle current room (off)
         Instance.rooms[CurrentRoomId].ToggleRoomState();
 
         // Cycle to next room index
-        CurrentRoomId.IncrementSmart(Instance.rooms.Length);
+        CurrentRoomId.AddSmart(reversed ? 1 : -1, Instance.rooms.Length);
 
         // Toggle next room (on)
         Instance.rooms[CurrentRoomId].ToggleRoomState();

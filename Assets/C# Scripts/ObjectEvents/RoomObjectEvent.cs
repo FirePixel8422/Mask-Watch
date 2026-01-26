@@ -1,34 +1,45 @@
 ﻿using UnityEngine;
 
 
-public class RoomObjectEvent : MonoBehaviour
+public abstract class RoomObjectEvent : MonoBehaviour
 {
     public RoomEventRequirements Requirements;
     public RoomEventExecuteOptions ExecuteOptions;
 
-    protected bool isManipulated = false;
+    public bool IsActive = false;
 
 
-    public void Execute()
+    public bool TryExecute(bool isRoomActive, float elapsedPlayTime, out bool ranOutOfExecutions)
     {
+        // Confirm execution conditions
+        if ((Requirements.AllowIfRoomActive || isRoomActive == false) ||
+            Requirements.TimeRequirement > elapsedPlayTime)
+        {
+            ranOutOfExecutions = default;
+            return false;
+        }
+
         ExecuteOptions.MaxExecutionCount -= 1;
-        isManipulated = true;
+        ranOutOfExecutions = ExecuteOptions.IsOutOfExecutions;
 
         OnExecute();
+        IsActive = true;
+
+        return true;
     }
     protected virtual void OnExecute() { }
 
-    public bool TryReport(float reportTime)
+    public bool TryReport(float delay)
     {
-        if (isManipulated)
+        if (IsActive)
         {
             // Report after delay
             this.Invoke(() =>
             {
-                isManipulated = false;
+                IsActive = false;
                 OnReported();
             },
-            reportTime);
+            delay);
 
             return true;
         }
