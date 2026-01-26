@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 
 
-public class CameraDisplay : UpdateMonoBehaviour
+public class CameraDisplayManager : UpdateMonoBehaviour
 {
     [SerializeField] private GameObject staticScreenCamHolder;
 
@@ -11,11 +11,10 @@ public class CameraDisplay : UpdateMonoBehaviour
     private Camera monitorCamera;
     private CameraController[] gameCameras;
 
-    private int selectedCameraIndex;
     private bool isSwappingCamera;
 
 
-    private void Start()
+    public void Init()
     {
         monitorCamera = GetComponentInChildren<Camera>();
         gameCameras = this.FindObjectsOfType<CameraController>(true);
@@ -41,13 +40,13 @@ public class CameraDisplay : UpdateMonoBehaviour
 
     private IEnumerator SwapCameraCycle()
     {
-        selectedCameraIndex.IncrementSmart(gameCameras.Length);
+        RoomManager.LoadNextRoom();
 
         monitorCamera.transform.SetParent(staticScreenCamHolder.transform, false, false);
 
         yield return new WaitForSeconds(EzRandom.Range(camSwapDelayMinMax));
 
-        SwapToCamera(selectedCameraIndex);
+        SwapToCamera(RoomManager.CurrentRoomId);
 
         isSwappingCamera = false;
     }

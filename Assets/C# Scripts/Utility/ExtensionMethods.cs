@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using Unity.Collections;
 using UnityEngine;
 
@@ -310,6 +311,25 @@ public static class ExtensionMethods
             int j = UnityEngine.Random.Range(i, n);
             (targetArray[i], targetArray[j]) = (targetArray[j], targetArray[i]);
         }
+    }
+    /// <summary>
+    /// Randomly shuffles the content of the array in place using Fisher–Yates.
+    /// </summary>
+    public static void Shuffle<T>(this List<T> targetArray)
+    {
+        int n = targetArray.Count;
+        for (int i = 0; i < n - 1; i++)
+        {
+            int j = UnityEngine.Random.Range(i, n);
+            (targetArray[i], targetArray[j]) = (targetArray[j], targetArray[i]);
+        }
+    }
+    /// <summary>
+    /// Randomly shuffles the content of the array in place using Fisher–Yates.
+    /// </summary>
+    public static T SelectRandom<T>(this T[] targetArray)
+    {
+        return targetArray[UnityEngine.Random.Range(0, targetArray.Length)];
     }
 
     /// <summary>
