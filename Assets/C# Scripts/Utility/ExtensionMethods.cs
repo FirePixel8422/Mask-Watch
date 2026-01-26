@@ -121,6 +121,11 @@ public static class ExtensionMethods
         return component != null;
     }
 
+    #endregion
+
+
+    #region (Try)FindObjectOfType
+
     public static bool TryFindObjectOfType<T>(this UnityEngine.Object obj, out T component, bool includeInactive = false) where T : UnityEngine.Object
     {
         FindObjectsInactive findObjectsInactive = includeInactive ? FindObjectsInactive.Include : FindObjectsInactive.Exclude;
@@ -143,7 +148,7 @@ public static class ExtensionMethods
         return UnityEngine.Object.FindFirstObjectByType<T>();
     }
 
-    public static T[] FindObjectsOfType<T>(this UnityEngine.Object obj, bool includeInactive, bool sortByInstanceID = false) where T : UnityEngine.Object
+    public static T[] FindObjectsOfType<T>(this UnityEngine.Object obj, bool includeInactive = false, bool sortByInstanceID = false) where T : UnityEngine.Object
     {
         FindObjectsInactive findObjectsInactive = includeInactive ? FindObjectsInactive.Include : FindObjectsInactive.Exclude;
         FindObjectsSortMode sortMode = sortByInstanceID ? FindObjectsSortMode.InstanceID : FindObjectsSortMode.None;
@@ -316,5 +321,30 @@ public static class ExtensionMethods
     {
         targetArray[targetId] = targetArray[backId];
         targetArray[backId] = nullValue;
+    }
+
+    /// <summary>
+    /// Increments index by 1 and wraps to 0 if it reaches length
+    /// </summary>
+    public static int IncrementSmart(this ref int value, int length)
+    {
+        value += 1;
+        if (value >= length)
+        {
+            value = 0;
+        }
+        return value;
+    }
+    /// <summary>
+    /// Decrements index by 1 and wraps to 0 if it reaches length
+    /// </summary>
+    public static int DecrementSmart(this ref int value, int length)
+    {
+        value -= 1;
+        if (value < 0)
+        {
+            value = length - 1;
+        }
+        return value;
     }
 }
