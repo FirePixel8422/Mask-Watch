@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-public class CameraInteractor : UpdateMonoBehaviour
+public class CameraReporter : UpdateMonoBehaviour
 {
     [SerializeField] private float reportStartTime = 1;
     [SerializeField] private float reportDecayTime = 0.25f;
@@ -18,7 +18,7 @@ public class CameraInteractor : UpdateMonoBehaviour
     [SerializeField] private GameObject noAnomalyFoundTextObj;
 
     private float selectionProcess;
-    private bool isReporting;
+    public static bool IsReporting;
 
 
     protected override void OnUpdate()
@@ -28,7 +28,7 @@ public class CameraInteractor : UpdateMonoBehaviour
             image.transform.position = Input.mousePosition;
         }
 
-        if (isReporting == false)
+        if (IsReporting == false)
         {
             selectionProcess = Input.GetMouseButton(0) ?
                 math.saturate(selectionProcess + Time.deltaTime / reportStartTime) :
@@ -38,7 +38,7 @@ public class CameraInteractor : UpdateMonoBehaviour
 
             if (selectionProcess == 1)
             {
-                isReporting = true;
+                IsReporting = true;
                 selectionAnim.SetBool("Reporting", true);
 
                 bool hasFoundAnomaly = false;
@@ -70,7 +70,7 @@ public class CameraInteractor : UpdateMonoBehaviour
     }
     private void EndReportCycle()
     {
-        isReporting = false;
+        IsReporting = false;
         selectionAnim.SetBool("Reporting", false);
 
         fixingAnomalyTextObj.SetActive(false);
