@@ -9,12 +9,12 @@ using UnityEngine;
 public class Room : MonoBehaviour
 {
     private bool isRoomActive;
-    private List<RoomObjectEvent> roomEvents;
+    private List<ObjectEvent> roomEvents;
 
 
     private void Awake()
     {
-        roomEvents = GetComponentsInChildren<RoomObjectEvent>(true).ToList();
+        roomEvents = GetComponentsInChildren<ObjectEvent>(true).ToList();
     }
 
     /// <summary>
@@ -35,7 +35,7 @@ public class Room : MonoBehaviour
 
         for (int i = 0; i < roomCount; i++)
         {
-            RoomObjectEvent cRoomEvent = roomEvents[i];
+            ObjectEvent cRoomEvent = roomEvents[i];
 
             if (cRoomEvent.TryExecute(isRoomActive, elapsedPlayTime, out bool ranOutOfExections))
             {

@@ -1225,8 +1225,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CameraDisplay
   staticScreenCamHolder: {fileID: 7451555702015044999}
   camSwapDelayMinMax:
-    min: 0.5
-    max: 1
+    min: 0.2
+    max: 0.5
 --- !u!114 &5966598904592865204
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1241,8 +1241,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   reportStartTime: 1
   reportDecayTime: 0.25
-  reportPendingTime: 5
-  reportCleanupTime: 3
+  reportPendingTime: 3
+  reportCleanupTime: 1.5
   image: {fileID: 1153319395}
   selectionAnim: {fileID: 1153319397}
   fixingAnomalyTextObj: {fileID: 1057320345}

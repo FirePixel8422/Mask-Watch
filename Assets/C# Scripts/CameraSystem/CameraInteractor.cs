@@ -39,16 +39,15 @@ public class CameraInteractor : UpdateMonoBehaviour
                 bool hasFoundAnomaly = false;
                 if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hitInfo))
                 {
-                    if (hitInfo.transform.TryGetComponent(out RoomObjectEvent roomObjEvent))
+                    if (hitInfo.transform.TryGetComponentInParentRecursively(true, out ObjectEvent roomObjEvent))
                     {
                         hasFoundAnomaly = roomObjEvent.TryReport(reportPendingTime);
                     }
                 }
-                this.Invoke(() =>
+                this.Invoke(reportPendingTime, () =>
                 {
                     ResolveAnomalyReport(hasFoundAnomaly);
-                },
-                reportPendingTime);
+                });
             }
         }
         if (selectionProcess == 0)

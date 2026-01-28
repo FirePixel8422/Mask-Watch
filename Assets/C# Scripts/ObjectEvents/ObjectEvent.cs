@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 
 
-public abstract class RoomObjectEvent : MonoBehaviour
+public abstract class ObjectEvent : MonoBehaviour
 {
     public RoomEventRequirements Requirements;
-    public RoomEventExecuteOptions ExecuteOptions;
+    public RoomEventExecuteOptions ExecuteOptions = new RoomEventExecuteOptions() { AllowDuplicates = false, MaxExecutionCount = 1 };
 
     public bool IsActive = false;
 
@@ -12,10 +12,10 @@ public abstract class RoomObjectEvent : MonoBehaviour
     public bool TryExecute(bool isRoomActive, float elapsedPlayTime, out bool ranOutOfExecutions)
     {
         // Confirm execution conditions
-        if ((Requirements.AllowIfRoomActive || isRoomActive == false) ||
+        if (Requirements.ConfirmVisibilityRequirement(isRoomActive) == false ||
             Requirements.TimeRequirement > elapsedPlayTime)
         {
-            ranOutOfExecutions = default;
+            ranOutOfExecutions = false;
             return false;
         }
 
@@ -34,12 +34,11 @@ public abstract class RoomObjectEvent : MonoBehaviour
         if (IsActive)
         {
             // Report after delay
-            this.Invoke(() =>
+            this.Invoke(delay , () =>
             {
                 IsActive = false;
                 OnReported();
-            },
-            delay);
+            });
 
             return true;
         }

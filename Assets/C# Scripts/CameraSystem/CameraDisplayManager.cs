@@ -65,12 +65,11 @@ public class CameraDisplayManager : UpdateMonoBehaviour
 
         monitorCamera.transform.SetParent(staticScreenCamHolder.transform, false, false);
 
-        this.Invoke(() =>
+        this.Invoke(duration , () =>
         {
             SwapToCamera(RoomManager.CurrentRoomId);
             isSwappingCamera = false;
-        }, 
-        duration);
+        });
     }
     public void SwapToCamera(int camId)
     {

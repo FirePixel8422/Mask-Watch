@@ -2,7 +2,7 @@
 using UnityEngine;
 
 
-public class ObjectMoveEvent : RoomObjectEvent
+public class ObjectMoveEvent : ObjectEvent
 {
     [SerializeField] private Transformation[] transformations = new Transformation[1] { Transformation.Identity };
     [SerializeField] private float transformTime;
@@ -12,14 +12,12 @@ public class ObjectMoveEvent : RoomObjectEvent
 
     protected override void OnExecute()
     {
-        // Store start transform
         startTransformation = Transformation.FromTransform(transform);
         StartCoroutine(MoveCycle());
     }
     protected override void OnReported()
     {
         StopAllCoroutines();
-        // Reset transform;
         startTransformation.ApplyToTransform(transform);
     }
 

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 
-public class ObjectTeleportEvent : RoomObjectEvent
+public class ObjectTeleportEvent : ObjectEvent
 {
     [SerializeField] private Transformation[] transformations = new Transformation[1] { Transformation.Identity };
 

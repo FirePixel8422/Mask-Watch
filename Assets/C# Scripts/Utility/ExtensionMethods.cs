@@ -12,26 +12,23 @@ public static class ExtensionMethods
     /// <summary>
     /// Call function after a delay
     /// </summary>
-    /// <param name="mb"></param>
-    /// <param name="f">Function to call.</param>
-    /// <param name="delay">Wait time before calling function.</param>
-    public static void Invoke(this MonoBehaviour mb, Action f, float delay)
+    public static void Invoke(this MonoBehaviour mb, float delay, Action f)
     {
-        mb.StartCoroutine(InvokeRoutine(f, delay));
+        mb.StartCoroutine(InvokeRoutine(delay, f));
     }
 
-    public static void Invoke<T>(this MonoBehaviour mb, Action<T> f, T param, float delay)
+    public static void Invoke<T>(this MonoBehaviour mb, float delay, Action<T> f, T param)
     {
-        mb.StartCoroutine(InvokeRoutine(f, param, delay));
+        mb.StartCoroutine(InvokeRoutine(delay, f, param));
     }
 
-    private static IEnumerator InvokeRoutine(Action f, float delay)
+    private static IEnumerator InvokeRoutine(float delay, Action f)
     {
         yield return new WaitForSeconds(delay);
         f.Invoke();
     }
 
-    private static IEnumerator InvokeRoutine<T>(Action<T> f, T param, float delay)
+    private static IEnumerator InvokeRoutine<T>(float delay, Action<T> f, T param)
     {
         yield return new WaitForSeconds(delay);
         f.Invoke(param);
@@ -120,6 +117,24 @@ public static class ExtensionMethods
     {
         component = trans.GetComponentsInParent<T>();
         return component != null;
+    }
+
+    public static bool TryGetComponentInParentRecursively<T>(this Transform trans, bool checkStartTransform, out T component) where T : UnityEngine.Object
+    {
+        Transform current = checkStartTransform ? trans : trans.parent;
+
+        while (current != null)
+        {
+            if (current.TryGetComponent(out component))
+            {
+                return true;
+            }
+
+            current = current.parent;
+        }
+
+        component = null;
+        return false;
     }
 
     #endregion
