@@ -4,28 +4,47 @@ using UnityEngine.EventSystems;
 
 public class UIDoubleClick : MonoBehaviour, IPointerClickHandler
 {
-    [Tooltip("Max tijd tussen 2 klikken om als dubbelklik te tellen (seconden).")]
+    [Header("Double Click")]
     public float doubleClickTime = 0.3f;
-
     public UnityEvent onDoubleClick;
 
     private float lastClickTime = -999f;
 
+    [Header("Delayed Activate (for Button)")]
+    [SerializeField] private float activateDelay = 0.2f;
+    [SerializeField] private GameObject[] objectsToActivate;
+
     public void OnPointerClick(PointerEventData eventData)
     {
-        // Alleen linker muisknop
         if (eventData.button != PointerEventData.InputButton.Left)
             return;
 
-        // Als 2e klik snel genoeg na de 1e komt -> dubbelklik
         if (Time.unscaledTime - lastClickTime <= doubleClickTime)
         {
-            lastClickTime = -999f; // reset zodat triple-click niet 2x triggert
+            lastClickTime = -999f;
             onDoubleClick?.Invoke();
         }
         else
         {
             lastClickTime = Time.unscaledTime;
+        }
+    }
+
+    // Hang deze aan je Button OnClick()
+    public void ActivateObjectsAfterDelay()
+    {
+        CancelInvoke(nameof(DoActivate));
+        Invoke(nameof(DoActivate), activateDelay);
+    }
+
+    private void DoActivate()
+    {
+        if (objectsToActivate == null) return;
+
+        for (int i = 0; i < objectsToActivate.Length; i++)
+        {
+            var go = objectsToActivate[i];
+            if (go != null) go.SetActive(true);
         }
     }
 }
