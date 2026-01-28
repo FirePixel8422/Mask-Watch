@@ -7,9 +7,10 @@ public class ObjectStateChange : ObjectEvent
 
 
 
-    private void Awake()
+    protected override void Awake()
     {
-        gameObject.SetActive(!HideOnExecute);
+        base.Awake();
+        gameObject.SetActive(HideOnExecute);
     }
 
     protected override void OnExecute()
