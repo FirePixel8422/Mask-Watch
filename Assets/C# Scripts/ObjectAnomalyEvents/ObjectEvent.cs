@@ -8,12 +8,23 @@ public abstract class ObjectEvent : MonoBehaviour
 
     public bool IsActive = false;
 
+    private ObjectResetHandler resetHandler;
+
+
+    protected virtual void Awake()
+    {
+        if (TryGetComponent(out resetHandler))
+        {
+            resetHandler.OnStart();
+        }
+    }
 
     public bool TryExecute(bool isRoomActive, float elapsedPlayTime, out bool ranOutOfExecutions)
     {
         // Confirm execution conditions
         if (Requirements.ConfirmVisibilityRequirement(isRoomActive) == false ||
-            Requirements.TimeRequirement > elapsedPlayTime)
+            Requirements.TimeRequirement > elapsedPlayTime ||
+            IsActive && ExecuteOptions.AllowDuplicates == false)
         {
             ranOutOfExecutions = false;
             return false;
@@ -34,9 +45,10 @@ public abstract class ObjectEvent : MonoBehaviour
         if (IsActive)
         {
             // Report after delay
-            this.Invoke(delay , () =>
+            this.Invoke(delay, () =>
             {
                 IsActive = false;
+                resetHandler.OnReset();
                 OnReported();
             });
 

@@ -6,7 +6,6 @@ public class RoomManager : UpdateMonoBehaviour
     private static RoomManager Instance { get; set; }
 
 
-    [SerializeField] private Room[] roomPrefabs;
     [SerializeField] private Room[] rooms;
     [SerializeField] private MinMaxFloat eventDelayMinMax;
 
@@ -19,12 +18,13 @@ public class RoomManager : UpdateMonoBehaviour
     {
         Instance = this;
 
-        int roomCount = roomPrefabs.Length;
+        int roomCount = transform.childCount;
         rooms = new Room[roomCount];
 
         for (int i = 0; i < roomCount; i++)
         {
-            rooms[i] = Instantiate(roomPrefabs[i], 50 * i * Vector3.down, Quaternion.identity);
+            rooms[i] = transform.GetChild(i).GetComponent<Room>();
+            rooms[i].transform.position = 50 * i * Vector3.down;
         }
 
         // Activate the first room on start

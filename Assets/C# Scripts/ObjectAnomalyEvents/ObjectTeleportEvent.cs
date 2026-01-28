@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 
 
+[RequireComponent(typeof(ObjectResetHandler))]
 public class ObjectTeleportEvent : ObjectEvent
 {
     [SerializeField] private Transformation[] transformations = new Transformation[1] { Transformation.Identity };

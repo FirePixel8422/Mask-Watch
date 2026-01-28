@@ -2,23 +2,20 @@
 using UnityEngine;
 
 
+[RequireComponent(typeof(ObjectResetHandler))]
 public class ObjectMoveEvent : ObjectEvent
 {
     [SerializeField] private Transformation[] transformations = new Transformation[1] { Transformation.Identity };
     [SerializeField] private float transformTime;
 
-    private Transformation startTransformation;
-
 
     protected override void OnExecute()
     {
-        startTransformation = Transformation.FromTransform(transform);
         StartCoroutine(MoveCycle());
     }
     protected override void OnReported()
     {
         StopAllCoroutines();
-        startTransformation.ApplyToTransform(transform);
     }
 
     private IEnumerator MoveCycle()

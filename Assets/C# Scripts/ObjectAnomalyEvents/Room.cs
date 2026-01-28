@@ -8,7 +8,7 @@ using UnityEngine;
 
 public class Room : MonoBehaviour
 {
-    private bool isRoomActive;
+    [SerializeField] private bool isRoomActive;
     private List<ObjectEvent> roomEvents;
 
 
