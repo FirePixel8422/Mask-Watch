@@ -23,6 +23,11 @@ public class CameraInteractor : UpdateMonoBehaviour
 
     protected override void OnUpdate()
     {
+        if (selectionProcess == 0)
+        {
+            image.transform.position = Input.mousePosition;
+        }
+
         if (isReporting == false)
         {
             selectionProcess = Input.GetMouseButton(0) ?
@@ -37,7 +42,7 @@ public class CameraInteractor : UpdateMonoBehaviour
                 selectionAnim.SetBool("Reporting", true);
 
                 bool hasFoundAnomaly = false;
-                if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hitInfo))
+                if (Physics.Raycast(Camera.main.ScreenPointToRay(image.transform.position), out RaycastHit hitInfo))
                 {
                     if (hitInfo.transform.TryGetComponentInParentRecursively(true, out ObjectEvent roomObjEvent))
                     {
@@ -49,10 +54,6 @@ public class CameraInteractor : UpdateMonoBehaviour
                     ResolveAnomalyReport(hasFoundAnomaly);
                 });
             }
-        }
-        if (selectionProcess == 0)
-        {
-            image.transform.position = Input.mousePosition;
         }
     }
 
