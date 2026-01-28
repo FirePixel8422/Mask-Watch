@@ -17,8 +17,9 @@ public class CameraReporter : UpdateMonoBehaviour
     [SerializeField] private GameObject fixingAnomalyTextObj;
     [SerializeField] private GameObject noAnomalyFoundTextObj;
 
-    private float selectionProcess;
-    public static bool IsReporting;
+    private static float selectionProcess;
+    private bool isReporting;
+    public static bool IsTryingToReport => selectionProcess > 0;
 
 
     protected override void OnUpdate()
@@ -28,7 +29,7 @@ public class CameraReporter : UpdateMonoBehaviour
             image.transform.position = Input.mousePosition;
         }
 
-        if (IsReporting == false)
+        if (isReporting == false)
         {
             selectionProcess = Input.GetMouseButton(0) ?
                 math.saturate(selectionProcess + Time.deltaTime / reportStartTime) :
@@ -38,7 +39,7 @@ public class CameraReporter : UpdateMonoBehaviour
 
             if (selectionProcess == 1)
             {
-                IsReporting = true;
+                isReporting = true;
                 selectionAnim.SetBool("Reporting", true);
 
                 bool hasFoundAnomaly = false;
@@ -70,7 +71,7 @@ public class CameraReporter : UpdateMonoBehaviour
     }
     private void EndReportCycle()
     {
-        IsReporting = false;
+        isReporting = false;
         selectionAnim.SetBool("Reporting", false);
 
         fixingAnomalyTextObj.SetActive(false);

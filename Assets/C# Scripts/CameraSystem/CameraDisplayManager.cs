@@ -36,7 +36,7 @@ public class CameraDisplayManager : UpdateMonoBehaviour
     }
     protected override void OnUpdate()
     {
-        if (isSwappingCamera || CameraReporter.IsReporting) return;
+        if (isSwappingCamera || CameraReporter.IsTryingToReport) return;
 
         if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
         {
