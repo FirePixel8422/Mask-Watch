@@ -1,36 +1,33 @@
 ﻿using UnityEngine;
+using UnityEngine;
 
 
 [RequireComponent(typeof(Rigidbody))]
-[RequireComponent(typeof(ObjectPhysicsResetHandler))]
-public class ObjectPhysicsEvent : ObjectEvent
+public class AnomalyPhysicsForceEvent : AnomalyEvent
 {
     [SerializeField] private Vector3 linearVelocity;
     [SerializeField] private Vector3 angularVelocity;
-    [SerializeField] private MinMaxFloat randomForceMultiplier;
+
+    [SerializeField] private float linearForceMultiplier;
+    [SerializeField] private float angularForceMultiplier;
 
     private Rigidbody rb;
 
 
     protected override void Awake()
     {
-        base.Awake();
-
         rb = GetComponent<Rigidbody>();
         rb.isKinematic = true;
+
+        resetHandler = new ObjectPhysicsResetHandler(rb, transform);
     }
 
     protected override void OnExecute()
     {
         rb.isKinematic = false;
 
-        float forceMultiplier = EzRandom.Range(randomForceMultiplier);
-        rb.AddForce(linearVelocity * forceMultiplier, ForceMode.VelocityChange);
-        rb.AddTorque(angularVelocity * forceMultiplier, ForceMode.VelocityChange);
-    }
-    protected override void OnReported()
-    {
-
+        rb.AddForce(linearVelocity.normalized * linearForceMultiplier, ForceMode.VelocityChange);
+        rb.AddTorque(angularVelocity.normalized * angularForceMultiplier, ForceMode.VelocityChange);
     }
 
 

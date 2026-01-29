@@ -24,6 +24,8 @@ public class CameraReporter : UpdateMonoBehaviour
 
     protected override void OnUpdate()
     {
+        if (Application.isFocused == false) return;
+
         if (selectionProcess == 0)
         {
             image.transform.position = Input.mousePosition;
@@ -45,7 +47,7 @@ public class CameraReporter : UpdateMonoBehaviour
                 bool hasFoundAnomaly = false;
                 if (Physics.Raycast(Camera.main.ScreenPointToRay(image.transform.position), out RaycastHit hitInfo))
                 {
-                    if (hitInfo.transform.TryGetComponentInParentRecursively(true, out ObjectEvent roomObjEvent))
+                    if (hitInfo.transform.TryGetComponentInParentRecursively(true, out AnomalyEvent roomObjEvent))
                     {
                         hasFoundAnomaly = roomObjEvent.TryReport(reportPendingTime);
                     }

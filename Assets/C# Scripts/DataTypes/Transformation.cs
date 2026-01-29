@@ -18,14 +18,11 @@ public struct Transformation
         Scale = Vector3.one
     };
 
-    public static Transformation FromTransform(Transform t)
+    public Transformation(Transform t)
     {
-        return new Transformation
-        {
-            Position = t.localPosition,
-            RotationEuler = t.localEulerAngles,
-            Scale = t.localScale
-        };
+        Position = t.localPosition;
+        RotationEuler = t.localEulerAngles;
+        Scale = t.localScale;
     }
     public void ApplyToTransform(Transform t)
     {

@@ -10,7 +10,8 @@ public class RoomManager : UpdateMonoBehaviour
     [SerializeField] private MinMaxFloat eventDelayMinMax;
 
     public static int CurrentRoomId;
-    private static float elapsedPlayTime;
+    public static float ElapsedPlayTime;
+
     private static float nextEventTime;
 
 
@@ -35,9 +36,9 @@ public class RoomManager : UpdateMonoBehaviour
 
     protected override void OnUpdate()
     {
-        elapsedPlayTime += Time.deltaTime;
+        ElapsedPlayTime += Time.deltaTime;
 
-        if (elapsedPlayTime >= nextEventTime)
+        if (ElapsedPlayTime >= nextEventTime)
         {
             bool eventExecuted;
             int roomCount = rooms.Length;
@@ -48,12 +49,12 @@ public class RoomManager : UpdateMonoBehaviour
             do
             {
                 // Trigger a random event in a random room
-                eventExecuted = rooms[randomRoomId].ExecuteRandomEvent(elapsedPlayTime);
+                eventExecuted = rooms[randomRoomId].ExecuteRandomEvent(ElapsedPlayTime);
                 randomRoomId.IncrementSmart(roomCount);
             }
             while (eventExecuted == false && startRoomId != randomRoomId);
 
-            nextEventTime = elapsedPlayTime + EzRandom.Range(eventDelayMinMax);
+            nextEventTime = ElapsedPlayTime + EzRandom.Range(eventDelayMinMax);
         }
     }
 
@@ -67,5 +68,8 @@ public class RoomManager : UpdateMonoBehaviour
 
         // Toggle next room (on)
         Instance.rooms[CurrentRoomId].ToggleRoomState();
+
+        // Update HUD
+        HUD.UpdateRoomName(Instance.rooms[CurrentRoomId].RoomName);
     }
 }

@@ -1,20 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Unity.Collections;
 using UnityEngine;
 
 
-
 public class Room : MonoBehaviour
 {
+    public string RoomName;
+
     [SerializeField] private bool isRoomActive;
-    private List<ObjectEvent> roomEvents;
+    private List<AnomalyEvent> anomalyEvents;
 
 
     private void Awake()
     {
-        roomEvents = GetComponentsInChildren<ObjectEvent>(true).ToList();
+        anomalyEvents = GetComponentsInChildren<AnomalyEvent>(true).ToList();
     }
 
     /// <summary>
@@ -30,19 +30,16 @@ public class Room : MonoBehaviour
         // POSSIBLE PERFORMANCE ISSUE IF MANY EVENTS - MAY NEED OPTIMIZATION LATER
         // POSSIBLE PERFORMANCE ISSUE IF MANY EVENTS - MAY NEED OPTIMIZATION LATER
         // POSSIBLE PERFORMANCE ISSUE IF MANY EVENTS - MAY NEED OPTIMIZATION LATER
-        roomEvents.Shuffle();
-        int roomCount = roomEvents.Count;
+        anomalyEvents.Shuffle();
+        int roomCount = anomalyEvents.Count;
 
         for (int i = 0; i < roomCount; i++)
         {
-            ObjectEvent cRoomEvent = roomEvents[i];
+            AnomalyEvent cRoomEvent = anomalyEvents[i];
 
-            if (cRoomEvent.TryExecute(isRoomActive, elapsedPlayTime, out bool ranOutOfExections))
+            if (cRoomEvent.TryExecute(isRoomActive, elapsedPlayTime))
             {
-                if (ranOutOfExections)
-                {
-                    roomEvents.RemoveAtSwapBack(i);
-                }
+                anomalyEvents.RemoveAtSwapBack(i);
                 return true;
             }
         }

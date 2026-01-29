@@ -3,13 +3,13 @@
 
 public class ObjectPhysicsResetHandler : ObjectResetHandler
 {
-    private Rigidbody rb;
+    protected Rigidbody rb;
 
 
-    public override void OnStart()
+    public ObjectPhysicsResetHandler(Rigidbody rb, Transform transform) : base(transform)
     {
-        base.OnStart();
-        rb = GetComponent<Rigidbody>();
+        this.rb = rb;
+        this.transform = transform;
     }
 
     public override void OnReset()

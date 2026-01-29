@@ -1,10 +1,10 @@
-using UnityEngine;
 
-public class ObjectStateChange : ObjectEvent
+
+
+public class AnomalyStateChangeEvent : AnomalyEvent
 {
     public StateChangeType stateChangeType = StateChangeType.HideOnExecute;
     public bool HideOnExecute => stateChangeType == StateChangeType.HideOnExecute;
-
 
 
     protected override void Awake()
