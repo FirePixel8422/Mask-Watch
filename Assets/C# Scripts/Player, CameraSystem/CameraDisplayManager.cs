@@ -23,7 +23,7 @@ public class CameraDisplayManager : UpdateMonoBehaviour
     
     public void Init()
     {
-        monitorCamera = GetComponentInChildren<Camera>();
+        monitorCamera = GetComponentInChildren<Camera>(true);
 
         if (cameraHolders.Length == 0)
         {
@@ -46,7 +46,7 @@ public class CameraDisplayManager : UpdateMonoBehaviour
         }
     }
 
-    private void SwapToNextCameraLR(bool reversed)
+    public void SwapToNextCameraLR(bool reversed)
     {
         RoomManager.Instance.SwapToNextRoom(reversed);
         SwapToStaticScreen(EzRandom.Range(camSwapDelayMinMax));
