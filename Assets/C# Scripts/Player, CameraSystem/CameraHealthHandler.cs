@@ -1,5 +1,6 @@
 ﻿using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 
 
@@ -49,8 +50,7 @@ public class CameraHealthHandler : UpdateMonoBehaviour
 
         if (targetNoiseStrength >= 1)
         {
-            gameObject.SetActive(false);
-            RoomManager.Instance.gameObject.SetActive(false);
+            HUD.Instance.LoseGame();
         }
     }
 

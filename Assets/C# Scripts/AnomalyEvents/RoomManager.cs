@@ -1,7 +1,8 @@
+using Fire_Pixel.Utility;
 using UnityEngine;
 
 
-public class RoomManager : UpdateMonoBehaviour
+public class RoomManager : MonoBehaviour
 {
     public static RoomManager Instance { get; private set; }
 
@@ -15,7 +16,7 @@ public class RoomManager : UpdateMonoBehaviour
     private static float nextEventTime;
 
 
-    private void Start()
+    public void Init()
     {
         Instance = this;
 
@@ -31,9 +32,12 @@ public class RoomManager : UpdateMonoBehaviour
         rooms[0].ToggleRoomState();
 
         CameraDisplayManager.Instance.Init();
+
+        ElapsedPlayTime = 0;
+        UpdateScheduler.RegisterUpdate(OnUpdate);
     }
 
-    protected override void OnUpdate()
+    private void OnUpdate()
     {
         ElapsedPlayTime += Time.deltaTime;
 
@@ -70,5 +74,10 @@ public class RoomManager : UpdateMonoBehaviour
 
         // Update HUD
         HUD.UpdateRoomName(rooms[CurrentRoomId].RoomName);
+    }
+
+    private void OnDestroy()
+    {
+        UpdateScheduler.UnRegisterUpdate(OnUpdate);
     }
 }

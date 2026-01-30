@@ -1,11 +1,12 @@
 ﻿using UnityEngine;
 using TMPro;
+using UnityEngine.Events;
 
 
 
 public class HUD : UpdateMonoBehaviour
 {
-    private static HUD Instance;
+    public static HUD Instance;
     private void Awake()
     {
         Instance = this;
@@ -15,7 +16,13 @@ public class HUD : UpdateMonoBehaviour
     [SerializeField] private TextMeshProUGUI timeTextObj;
     [SerializeField] private TextMeshProUGUI roomTextObj;
 
+    [SerializeField] private TextMeshProUGUI youWinTextObj;
+    [SerializeField] private TextMeshProUGUI youLoseTextObj;
+
     [SerializeField] private float timeMultiplier;
+
+    public SceneReloader reloader;
+    [SerializeField] private float winLoseDelay = 3;
 
 
     protected override void OnUpdate()
@@ -31,7 +38,33 @@ public class HUD : UpdateMonoBehaviour
         int hours = snappedMinutes / 60;
         int minutes = snappedMinutes % 60;
 
+        if (hours >= 6)
+        {
+            WinGame();
+        }
+
         timeTextObj.text = $"{hours:00}:{minutes:00}";
+    }
+
+    public void WinGame()
+    {
+        CameraHealthHandler.Instance.CurrentAnomalySeverity = -10;
+
+        youWinTextObj.enabled = true;
+
+        this.Invoke(winLoseDelay, () =>
+        {
+            reloader.ReloadScene();
+        });
+    }
+    public void LoseGame()
+    {
+        youLoseTextObj.enabled = true;
+
+        this.Invoke(winLoseDelay, () =>
+        {
+            reloader.ReloadScene();
+        });
     }
 
     public static void UpdateRoomName(string roomName)

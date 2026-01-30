@@ -9,8 +9,8 @@ public class AnomalyStateChangeEvent : AnomalyEvent
     public bool HideOnExecute => stateChangeType == StateChangeType.HideOnExecute;
 
 
-    public Renderer[] renderers;
-    public Collider[] colliders;
+    private Renderer[] renderers;
+    private Collider[] colliders;
 
 
     protected override void Awake()
@@ -18,7 +18,6 @@ public class AnomalyStateChangeEvent : AnomalyEvent
         base.Awake();
 
         renderers = GetComponentsInChildren<Renderer>();
-
         colliders = GetComponentsInChildren<Collider>();
 
         UpdateRenderers(HideOnExecute);
