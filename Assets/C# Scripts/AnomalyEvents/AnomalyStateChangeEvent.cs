@@ -71,7 +71,7 @@ public class AnomalyStateChangeEvent : AnomalyEvent
 
         for (int i = 0; i < mfs.Length; i++)
         {
-            Gizmos.DrawWireMesh(mfs[i].sharedMesh, 0, mfs[i].transform.position, mfs[i].transform.rotation, mfs[i].transform.localScale);
+            Gizmos.DrawWireMesh(mfs[i].sharedMesh, 0, mfs[i].transform.position, mfs[i].transform.rotation, mfs[i].transform.lossyScale);
         }
     }
 
