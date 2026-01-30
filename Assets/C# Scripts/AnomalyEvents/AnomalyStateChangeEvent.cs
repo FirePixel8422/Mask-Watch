@@ -36,7 +36,7 @@ public class AnomalyStateChangeEvent : AnomalyEvent
 
     protected override void OnExecute()
     {
-        UpdateRenderers(HideOnExecute == false);
+        UpdateRenderers(!HideOnExecute);
     }
     protected override void OnReported()
     {
@@ -45,15 +45,15 @@ public class AnomalyStateChangeEvent : AnomalyEvent
 
     private void UpdateRenderers(bool activeState)
     {
-        bool state = activeState != HideOnExecute;
+        bool colliderState = activeState != HideOnExecute;
 
         for (int i = 0; i < renderers.Length; i++)
         {
-            renderers[i].enabled = state;
+            renderers[i].enabled = activeState;
         }
         for (int i = 0; i < colliders.Length; i++)
         {
-            colliders[i].enabled = state;
+            colliders[i].enabled = colliderState;
         }
     }
 
