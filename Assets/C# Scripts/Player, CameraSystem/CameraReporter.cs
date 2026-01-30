@@ -18,29 +18,29 @@ public class CameraReporter : UpdateMonoBehaviour
     [SerializeField] private GameObject fixingAnomalyTextObj;
     [SerializeField] private GameObject noAnomalyFoundTextObj;
 
-    private static float selectionProcess;
+    public static float SelectionProcess;
     private bool isReporting;
-    public static bool IsTryingToReport => selectionProcess > 0;
+    public static bool IsTryingToReport => SelectionProcess > 0;
 
 
     protected override void OnUpdate()
     {
         if (Application.isFocused == false) return;
 
-        if (selectionProcess == 0)
+        if (SelectionProcess == 0)
         {
             image.transform.position = Input.mousePosition;
         }
 
         if (isReporting == false)
         {
-            selectionProcess = Input.GetMouseButton(0) ?
-                math.saturate(selectionProcess + Time.deltaTime / reportStartTime) :
-                math.saturate(selectionProcess - Time.deltaTime / reportDecayTime);
+            SelectionProcess = Input.GetMouseButton(0) ?
+                math.saturate(SelectionProcess + Time.deltaTime / reportStartTime) :
+                math.saturate(SelectionProcess - Time.deltaTime / reportDecayTime);
 
-            image.fillAmount = selectionProcess;
+            image.fillAmount = SelectionProcess;
 
-            if (selectionProcess == 1)
+            if (SelectionProcess == 1)
             {
                 isReporting = true;
                 selectionAnim.SetBool("Reporting", true);
@@ -83,6 +83,6 @@ public class CameraReporter : UpdateMonoBehaviour
         fixingAnomalyTextObj.SetActive(false);
         noAnomalyFoundTextObj.SetActive(false);
 
-        selectionProcess = 0;
+        SelectionProcess = 0;
     }
 }
