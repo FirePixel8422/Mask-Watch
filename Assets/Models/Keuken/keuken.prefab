@@ -250,6 +250,8 @@ MonoBehaviour:
   chainEvent: {fileID: 3997100838903627827}
   IsChainEvent: 0
   stateChangeType: 1
+  renderers: []
+  colliders: []
 --- !u!65 &3599607862999009591
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -624,6 +626,8 @@ MonoBehaviour:
   chainEvent: {fileID: 0}
   IsChainEvent: 0
   stateChangeType: 1
+  renderers: []
+  colliders: []
 --- !u!1001 &2108429562280425726
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1109,6 +1113,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 6238722442850195127}
+    - targetCorrespondingSourceObject: {fileID: -7146521406498821007, guid: 0db339ca0990caf478f8a8545706a4c0,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7161957569855058922}
     - targetCorrespondingSourceObject: {fileID: -7029948723529949830, guid: 0db339ca0990caf478f8a8545706a4c0,
         type: 3}
       insertIndex: -1
@@ -1180,6 +1188,29 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -8678823145569952518, guid: 0db339ca0990caf478f8a8545706a4c0, type: 3}
+--- !u!114 &7161957569855058922
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3733978203881648207}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f31e344e512f82649a0ac1e0a21477d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AnomalyMoveEvent
+  Requirements:
+    VisibilyRequirement: 1
+    TimeRequirement: 10
+  anomalySeverity: 1
+  chainEvent: {fileID: 0}
+  IsChainEvent: 0
+  transformation:
+    Position: {x: -0.787, y: 0.00000023841858, z: 1.9706595}
+    RotationEuler: {x: -0, y: -0, z: -0}
+    Scale: {x: 1, y: 1, z: 1}
+  transformTime: 10
 --- !u!1 &6329182861313465390 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -516098083770646512, guid: 0db339ca0990caf478f8a8545706a4c0,
@@ -1531,8 +1562,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AnomalyMoveEvent
   Requirements:
     VisibilyRequirement: 2
-    TimeRequirement: 0
-  anomalySeverity: 1
+    TimeRequirement: 5
+  anomalySeverity: 5
   chainEvent: {fileID: 0}
   IsChainEvent: 0
   transformation:
@@ -1711,6 +1742,8 @@ MonoBehaviour:
   chainEvent: {fileID: 0}
   IsChainEvent: 0
   stateChangeType: 1
+  renderers: []
+  colliders: []
 --- !u!4 &6373303710735351450 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 225661043081439154, guid: d7926f086dd0942459b6ff93ed5398e1,
@@ -1985,6 +2018,8 @@ MonoBehaviour:
   chainEvent: {fileID: 0}
   IsChainEvent: 0
   stateChangeType: 1
+  renderers: []
+  colliders: []
 --- !u!1001 &9023874968806692855
 PrefabInstance:
   m_ObjectHideFlags: 0
