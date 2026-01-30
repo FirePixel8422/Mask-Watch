@@ -47,13 +47,19 @@ public class AnomalyStateChangeEvent : AnomalyEvent
     {
         bool colliderState = activeState != HideOnExecute;
 
-        for (int i = 0; i < renderers.Length; i++)
+        if(renderers != null)
         {
-            renderers[i].enabled = activeState;
+            for (int i = 0; i < renderers.Length; i++)
+            {
+                renderers[i].enabled = activeState;
+            }
         }
-        for (int i = 0; i < colliders.Length; i++)
+        if (colliders != null)
         {
-            colliders[i].enabled = colliderState;
+            for (int i = 0; i < colliders.Length; i++)
+            {
+                colliders[i].enabled = colliderState;
+            }
         }
     }
 
