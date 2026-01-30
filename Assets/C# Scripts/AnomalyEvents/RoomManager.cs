@@ -3,11 +3,11 @@ using UnityEngine;
 
 public class RoomManager : UpdateMonoBehaviour
 {
-    private static RoomManager Instance { get; set; }
+    public static RoomManager Instance { get; private set; }
 
 
     [SerializeField] private Room[] rooms;
-    [SerializeField] private MinMaxFloat eventDelayMinMax;
+    [SerializeField] private MinMaxFloat anomalySpawnInterval;
 
     public static int CurrentRoomId;
     public static float ElapsedPlayTime;
@@ -25,7 +25,6 @@ public class RoomManager : UpdateMonoBehaviour
         for (int i = 0; i < roomCount; i++)
         {
             rooms[i] = transform.GetChild(i).GetComponent<Room>();
-            rooms[i].transform.position = 50 * i * Vector3.down;
         }
 
         // Activate the first room on start
@@ -54,22 +53,22 @@ public class RoomManager : UpdateMonoBehaviour
             }
             while (eventExecuted == false && startRoomId != randomRoomId);
 
-            nextEventTime = ElapsedPlayTime + EzRandom.Range(eventDelayMinMax);
+            nextEventTime = ElapsedPlayTime + EzRandom.Range(anomalySpawnInterval);
         }
     }
 
-    public static void SwapToNextRoom(bool reversed)
+    public void SwapToNextRoom(bool reversed)
     {
         // Toggle current room (off)
-        Instance.rooms[CurrentRoomId].ToggleRoomState();
+        rooms[CurrentRoomId].ToggleRoomState();
 
         // Cycle to next room index
-        CurrentRoomId.AddSmart(reversed ? 1 : -1, Instance.rooms.Length);
+        CurrentRoomId.AddSmart(reversed ? 1 : -1, rooms.Length);
 
         // Toggle next room (on)
-        Instance.rooms[CurrentRoomId].ToggleRoomState();
+        rooms[CurrentRoomId].ToggleRoomState();
 
         // Update HUD
-        HUD.UpdateRoomName(Instance.rooms[CurrentRoomId].RoomName);
+        HUD.UpdateRoomName(rooms[CurrentRoomId].RoomName);
     }
 }

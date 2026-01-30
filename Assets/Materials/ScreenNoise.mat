@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: NoiseMaterial
-  m_Shader: {fileID: -6465566751694194690, guid: 0ba81c3174502e146b38d0db1756f426,
+  m_Name: ScreenNoise
+  m_Shader: {fileID: -6465566751694194690, guid: 85258a7f8a25bf642860890c0fdc47e9,
     type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -92,6 +92,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _AddPrecomputedVelocity: 0
+    - _Alpha: 0
     - _AlphaClip: 0
     - _AlphaToMask: 0
     - _Blend: 0
@@ -127,13 +128,14 @@ Material:
     - _WorkflowMode: 1
     - _XRMotionVectorsPass: 1
     - _ZWrite: 1
+    - _a: 0.19
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _NoiseColor: {r: 0.90534, g: 0.9245283, b: 0.9239953, a: 0.2}
-    - _NoiseSpeed: {r: 8, g: -8, b: 0, a: 0}
-    - _NoiseTiling: {r: 3, g: 1, b: 0, a: 0}
+    - _NoiseColor: {r: 0.35714486, g: 0.38773456, b: 0.3886792, a: 0.47058824}
+    - _NoiseSpeed: {r: 25, g: 12, b: 0, a: 0}
+    - _NoiseTiling: {r: 4, g: 2.25, b: 0, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _Tiling: {r: 1, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []

@@ -15,10 +15,12 @@ public class HUD : UpdateMonoBehaviour
     [SerializeField] private TextMeshProUGUI timeTextObj;
     [SerializeField] private TextMeshProUGUI roomTextObj;
 
+    [SerializeField] private float timeMultiplier;
+
 
     protected override void OnUpdate()
     {
-        float elapsed = RoomManager.ElapsedPlayTime;
+        float elapsed = RoomManager.ElapsedPlayTime * timeMultiplier;
 
         // total "minutes" in your game-time
         int totalMinutes = Mathf.FloorToInt(elapsed);

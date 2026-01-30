@@ -15,6 +15,18 @@ public class Room : MonoBehaviour
     private void Awake()
     {
         anomalyEvents = GetComponentsInChildren<AnomalyEvent>(true).ToList();
+
+        int anomalyCount = anomalyEvents.Count;
+        for (int i = 0; i < anomalyCount; i++)
+        {
+            if (anomalyEvents[i].IsChainEvent)
+            {
+                anomalyEvents.RemoveAtSwapBack(i);
+
+                anomalyCount -= 1;
+                i -= 1;
+            }
+        }
     }
 
     /// <summary>
@@ -37,7 +49,7 @@ public class Room : MonoBehaviour
         {
             AnomalyEvent cRoomEvent = anomalyEvents[i];
 
-            if (cRoomEvent.TryExecute(isRoomActive, elapsedPlayTime))
+            if (cRoomEvent.TryExecute(isRoomActive && CameraDisplayManager.IsSwappingCamera == false, elapsedPlayTime))
             {
                 anomalyEvents.RemoveAtSwapBack(i);
                 return true;

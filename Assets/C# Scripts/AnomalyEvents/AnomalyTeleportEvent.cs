@@ -13,7 +13,7 @@ public class AnomalyTeleportEvent : AnomalyEvent
 
     private void OnDrawGizmosSelected()
     {
-        Gizmos.DrawWireMesh(GetComponent<MeshFilter>().sharedMesh, 0, transformation.Position + Vector3.one * 0.125f, Quaternion.identity, Vector3.one * 0.25f);
+        Gizmos.DrawWireMesh(GetComponent<MeshFilter>().sharedMesh, 0, transformation.Position , transformation.Rotation, transformation.Scale);
     }
 
 

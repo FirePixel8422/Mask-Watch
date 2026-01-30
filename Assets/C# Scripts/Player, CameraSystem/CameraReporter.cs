@@ -9,7 +9,8 @@ public class CameraReporter : UpdateMonoBehaviour
     [SerializeField] private float reportDecayTime = 0.25f;
 
     [SerializeField] private float reportPendingTime = 5;
-    [SerializeField] private float reportCleanupTime = 5;
+    [SerializeField] private float succesfullReportCleanupTime = 5;
+    [SerializeField] private float failedReportCleanupTime = 5;
 
     [SerializeField] private Image image;
     [SerializeField] private Animator selectionAnim;
@@ -64,8 +65,11 @@ public class CameraReporter : UpdateMonoBehaviour
     {
         image.fillAmount = 0;
 
+        float reportCleanupTime = hasFoundAnomaly ? succesfullReportCleanupTime : failedReportCleanupTime;
+
         // Show report result on static screen
         CameraDisplayManager.Instance.SwapToStaticScreen(reportCleanupTime);
+
         fixingAnomalyTextObj.SetActive(hasFoundAnomaly);
         noAnomalyFoundTextObj.SetActive(hasFoundAnomaly == false);
 

@@ -2,7 +2,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine;
 
 
-public class SceneLoader
+public class SceneLoader : MonoBehaviour
 {
     [SerializeField] private string sceneName;
 

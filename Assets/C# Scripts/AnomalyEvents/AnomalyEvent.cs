@@ -9,6 +9,9 @@ public abstract class AnomalyEvent : MonoBehaviour
     private bool isActive = false;
     protected ObjectResetHandler resetHandler;
 
+    [SerializeField] private AnomalyEvent chainEvent;
+    public bool IsChainEvent;
+
 
     protected virtual void Awake()
     {
@@ -17,11 +20,17 @@ public abstract class AnomalyEvent : MonoBehaviour
 
     public bool TryExecute(bool isRoomActive, float elapsedPlayTime)
     {
+        if (chainEvent != null)
+        {
+            chainEvent.TryExecute(isRoomActive, elapsedPlayTime);
+        }
         // Confirm execution conditions
         if (Requirements.ConfirmVisibilityRequirement(isRoomActive) && Requirements.TimeRequirement < elapsedPlayTime)
         {
             OnExecute();
+            CameraHealthHandler.Instance.CurrentAnomalySeverity += anomalySeverity;
             isActive = true;
+
             return true;
         }
         return false;
@@ -30,11 +39,16 @@ public abstract class AnomalyEvent : MonoBehaviour
 
     public bool TryReport(float delay)
     {
+        if (chainEvent != null)
+        {
+            chainEvent.TryReport(delay);
+        }
         if (isActive)
         {
             // Report after delay
             this.Invoke(delay, () =>
             {
+                CameraHealthHandler.Instance.CurrentAnomalySeverity -= anomalySeverity;
                 isActive = false;
                 resetHandler.OnReset();
                 OnReported();
@@ -53,7 +67,12 @@ public abstract class AnomalyEvent : MonoBehaviour
     {
         if (Application.isPlaying == false) return;
 
+        if (chainEvent != null)
+        {
+            chainEvent.DEBUG_ForceExecute();
+        }
         OnExecute();
+        CameraHealthHandler.Instance.CurrentAnomalySeverity += anomalySeverity;
         isActive = true;
     }
 #endif
