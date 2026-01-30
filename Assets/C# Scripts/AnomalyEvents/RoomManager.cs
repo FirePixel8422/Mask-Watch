@@ -39,6 +39,8 @@ public class RoomManager : MonoBehaviour
 
     private void OnUpdate()
     {
+        if (CameraDisplayManager.IsSwappingCamera) return;
+
         ElapsedPlayTime += Time.deltaTime;
 
         if (ElapsedPlayTime >= nextEventTime)

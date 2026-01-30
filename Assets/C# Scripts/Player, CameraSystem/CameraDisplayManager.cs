@@ -47,6 +47,8 @@ public class CameraDisplayManager : UpdateMonoBehaviour
 
     public void SwapToNextCameraLR(bool reversed)
     {
+        if (IsSwappingCamera || CameraReporter.IsTryingToReport) return;
+
         RoomManager.Instance.SwapToNextRoom(reversed);
         SwapToStaticScreen(EzRandom.Range(camSwapDelayMinMax));
     }
