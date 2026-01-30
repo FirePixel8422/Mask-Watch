@@ -10729,7 +10729,7 @@ MonoBehaviour:
   minAxisMagnitude: 0.45
   normalColorTick: 999
   partyColorTick: 0.08
-  partyDuration: 4
+  partyDuration: 16
   enableDebug: 0
 --- !u!114 &1282402768
 MonoBehaviour:
