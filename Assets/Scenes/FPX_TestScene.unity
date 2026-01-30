@@ -561,8 +561,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RoomManager
   rooms: []
   anomalySpawnInterval:
-    min: 0.5
-    max: 1
+    min: 12
+    max: 30
 --- !u!4 &325797041
 Transform:
   m_ObjectHideFlags: 0
@@ -1484,7 +1484,7 @@ MonoBehaviour:
   roomTextObj: {fileID: 1454205587}
   youWinTextObj: {fileID: 734455365}
   youLoseTextObj: {fileID: 86022680}
-  timeMultiplier: 1.2
+  timeMultiplier: 1
   reloader: {fileID: 1449884529}
   winLoseDelay: 3
 --- !u!114 &1449884529
@@ -3034,6 +3034,12 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: -5495902117074765545, guid: 557bdd0ac7961194694c2044801710f1,
+        type: 3}
+    - target: {fileID: 5713397333667514084, guid: 59a86f3744c15a349a928356f0a2e783,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: -7949073131480232235, guid: 371d1aaefa57ec2479b0b3376f537e79,
         type: 3}
     - target: {fileID: 6043623596420978852, guid: 59a86f3744c15a349a928356f0a2e783,
         type: 3}
