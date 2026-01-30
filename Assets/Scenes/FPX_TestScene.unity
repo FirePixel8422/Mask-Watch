@@ -561,8 +561,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RoomManager
   rooms: []
   anomalySpawnInterval:
-    min: 12
-    max: 30
+    min: 5
+    max: 5
 --- !u!4 &325797041
 Transform:
   m_ObjectHideFlags: 0

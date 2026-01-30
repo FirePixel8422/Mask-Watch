@@ -34,6 +34,7 @@ public class RoomManager : MonoBehaviour
         CameraDisplayManager.Instance.Init();
 
         ElapsedPlayTime = 0;
+        nextEventTime = 0;
         UpdateScheduler.RegisterUpdate(OnUpdate);
     }
 
