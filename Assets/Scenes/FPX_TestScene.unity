@@ -3029,6 +3029,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: LivingRoom
       objectReference: {fileID: 0}
+    - target: {fileID: 5264400955794651040, guid: 59a86f3744c15a349a928356f0a2e783,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 723196347922210812, guid: dbd928d6382cfd446a3ccf2b0c6614c7,
+        type: 3}
     - target: {fileID: 5282421502828273288, guid: 59a86f3744c15a349a928356f0a2e783,
         type: 3}
       propertyPath: m_Mesh
