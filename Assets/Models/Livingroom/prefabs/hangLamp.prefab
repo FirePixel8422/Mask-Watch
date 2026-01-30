@@ -726,6 +726,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 8350033683446130605}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: b76c8a26dd4203949a9306a78eab5f47,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4744391158646084211}
   m_SourcePrefab: {fileID: 100100000, guid: b76c8a26dd4203949a9306a78eab5f47, type: 3}
 --- !u!4 &7454981208482973049 stripped
 Transform:
@@ -761,3 +765,26 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 8403265263727593549, guid: b76c8a26dd4203949a9306a78eab5f47, type: 3}
+--- !u!114 &4744391158646084211
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7799875313481506755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f31e344e512f82649a0ac1e0a21477d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AnomalyMoveEvent
+  Requirements:
+    VisibilyRequirement: 1
+    TimeRequirement: 0
+  anomalySeverity: 0
+  chainEvent: {fileID: 0}
+  IsChainEvent: 1
+  transformation:
+    Position: {x: 0.9276276, y: 2.514, z: 2.319}
+    RotationEuler: {x: 0, y: 6144, z: 0}
+    Scale: {x: 1, y: 1, z: 1}
+  transformTime: 100
