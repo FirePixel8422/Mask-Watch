@@ -1807,7 +1807,7 @@ MonoBehaviour:
   anomalySeverity: 1
   chainEvent: {fileID: 0}
   IsChainEvent: 0
-  scale: {x: 1, y: 0.25, z: 1}
+  scale: {x: 1, y: 0.4, z: 1}
   growTime: 0.5
 --- !u!54 &811537210
 Rigidbody:
@@ -3512,6 +3512,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1526629224}
+    - targetCorrespondingSourceObject: {fileID: 1246011092821897362, guid: fc41ca894441958499b1db11c76dbf96,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1986415125}
     - targetCorrespondingSourceObject: {fileID: 2471481421091460698, guid: fc41ca894441958499b1db11c76dbf96,
         type: 3}
       insertIndex: -1
@@ -4448,6 +4452,35 @@ MonoBehaviour:
   chainEvent: {fileID: 0}
   IsChainEvent: 0
   stateChangeType: 0
+--- !u!1 &1986415120 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1246011092821897362, guid: fc41ca894441958499b1db11c76dbf96,
+    type: 3}
+  m_PrefabInstance: {fileID: 1526629222}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1986415125
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1986415120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f31e344e512f82649a0ac1e0a21477d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AnomalyMoveEvent
+  Requirements:
+    VisibilyRequirement: 0
+    TimeRequirement: 0
+  anomalySeverity: 1
+  chainEvent: {fileID: 0}
+  IsChainEvent: 0
+  transformation:
+    Position: {x: -0.74214554, y: 0.03342312, z: 3.63}
+    RotationEuler: {x: -0, y: 270, z: 0}
+    Scale: {x: 1, y: 1, z: 1}
+  transformTime: 2
 --- !u!1 &1989240913
 GameObject:
   m_ObjectHideFlags: 0
@@ -4633,7 +4666,7 @@ MonoBehaviour:
   anomalySeverity: 1
   chainEvent: {fileID: 0}
   IsChainEvent: 0
-  scale: {x: 0.25, y: 0.25, z: 0.25}
+  scale: {x: 0.3, y: 0.3, z: 0.3}
   growTime: 15
 --- !u!54 &2045888529
 Rigidbody:

@@ -58,6 +58,24 @@ public class AnomalyStateChangeEvent : AnomalyEvent
     }
 
 
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = HideOnExecute ? Color.red : Color.green;
+
+        MeshFilter[] mfs = GetComponentsInChildren<MeshFilter>();
+        if (TryGetComponent(out MeshFilter meshFilter))
+        {
+            Array.Resize(ref mfs, mfs.Length + 1);
+            mfs[^1] = meshFilter;
+        }
+
+        for (int i = 0; i < mfs.Length; i++)
+        {
+            Gizmos.DrawWireMesh(mfs[i].sharedMesh, 0, mfs[i].transform.position, mfs[i].transform.rotation, mfs[i].transform.localScale);
+        }
+    }
+
+
     public enum StateChangeType : byte
     {
         HideOnExecute,
