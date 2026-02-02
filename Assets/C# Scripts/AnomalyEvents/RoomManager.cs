@@ -9,6 +9,7 @@ public class RoomManager : MonoBehaviour
 
     [SerializeField] private Room[] rooms;
     [SerializeField] private MinMaxFloat anomalySpawnInterval;
+    [SerializeField] private NativeSampledAnimationCurve spawnCurveOverTime = NativeSampledAnimationCurve.Default;
 
     public static int CurrentRoomId;
     public static float ElapsedPlayTime;
@@ -33,6 +34,7 @@ public class RoomManager : MonoBehaviour
 
         CameraDisplayManager.Instance.Init();
 
+        spawnCurveOverTime.Bake();
         ElapsedPlayTime = 0;
         nextEventTime = 0;
         UpdateScheduler.RegisterUpdate(OnUpdate);
@@ -60,7 +62,7 @@ public class RoomManager : MonoBehaviour
             }
             while (eventExecuted == false && startRoomId != randomRoomId);
 
-            nextEventTime = ElapsedPlayTime + EzRandom.Range(anomalySpawnInterval);
+            nextEventTime = ElapsedPlayTime + EzRandom.Range(anomalySpawnInterval);// * spawnCurveOverTime.Evaluate(HUD.Instance.GamePercentage);
         }
     }
 
@@ -82,5 +84,6 @@ public class RoomManager : MonoBehaviour
     private void OnDestroy()
     {
         UpdateScheduler.UnRegisterUpdate(OnUpdate);
+        spawnCurveOverTime.Dispose();
     }
 }

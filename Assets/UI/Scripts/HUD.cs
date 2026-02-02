@@ -1,7 +1,5 @@
 ﻿using UnityEngine;
 using TMPro;
-using UnityEngine.Events;
-
 
 
 public class HUD : UpdateMonoBehaviour
@@ -24,6 +22,7 @@ public class HUD : UpdateMonoBehaviour
     public SceneReloader reloader;
     [SerializeField] private float winLoseDelay = 3;
 
+    public float GamePercentage => 360 / RoomManager.ElapsedPlayTime * timeMultiplier;
 
     protected override void OnUpdate()
     {
